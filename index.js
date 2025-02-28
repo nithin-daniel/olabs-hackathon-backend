@@ -8,13 +8,14 @@ const app = express();
 app.disable("x-powered-by");
 
 var cors = require("cors");
-app.use(
-  cors({
-    origin: ["*"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["*"],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   })
+// );
+app.use(cors());
 
 const routes = require("./routes");
 
