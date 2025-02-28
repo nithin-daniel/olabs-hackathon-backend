@@ -5,7 +5,7 @@ db.connect();
 
 const express = require("express");
 const app = express();
-app.disable("x-powered-by");
+// app.disable("x-powered-by");
 
 var cors = require("cors");
 app.use(cors());
