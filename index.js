@@ -5,10 +5,16 @@ db.connect();
 
 const express = require("express");
 const app = express();
-// app.disable("x-powered-by");
+app.disable("x-powered-by");
 
 var cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: ["*"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
 
 const routes = require("./routes");
 
