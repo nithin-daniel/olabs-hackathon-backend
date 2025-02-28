@@ -21,6 +21,12 @@ const ChapterSchema = new mongoose.Schema(
       type: [Object],
       required: true,
     },
+    class_id: { type: mongoose.Types.ObjectId, ref: "Class", required: true },
+    subject_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "Subject",
+      required: true,
+    },
   },
   { timestamps: true }
 );
