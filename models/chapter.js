@@ -21,10 +21,6 @@ const ChapterSchema = new mongoose.Schema(
       type: [Object],
       required: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );
