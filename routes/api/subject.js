@@ -1,10 +1,30 @@
 const express = require("express");
 const Subjects = require("../../models/subjects");
+const Chapters = require("../../models/chapter");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
     let subjects = await Subjects.find({});
+    res.json({
+      status: 200,
+      message: "Subjects Fetched Successfully",
+      data: subjects,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error,
+      error: error.message,
+    });
+  }
+});
+
+router.get("/get-subject/:id", async (req, res) => {
+  try {
+    const subjectId = req.params.id;
+
+    let subjects = await Chapters.find({ subject_id: subjectId });
     res.json({
       status: 200,
       message: "Subjects Fetched Successfully",
