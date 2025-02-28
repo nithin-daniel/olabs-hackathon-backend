@@ -41,7 +41,7 @@ router.get("/get-subject/:id", async (req, res) => {
 
 router.post("/create-subject", async (req, res) => {
   try {
-    let { title } = req.body;
+    let { title, class_id } = req.body;
     let subjectExists = await Subjects.findOne({ title: title });
     if (subjectExists) {
       return res.status(400).json({
@@ -49,7 +49,7 @@ router.post("/create-subject", async (req, res) => {
         message: "This Subject is Entered",
       });
     } else {
-      let newSubject = await new Subjects({ title });
+      let newSubject = await new Subjects({ title: title, class_id: class_id });
       await newSubject.save();
       res.json({
         status: 200,
