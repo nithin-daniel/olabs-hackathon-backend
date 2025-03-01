@@ -2,6 +2,7 @@ const express = require("express");
 const Chapters = require("../../models/chapter");
 const Class = require("../../models/class");
 const Subjects = require("../../models/subjects");
+const Enroll = require("../../models/enroll");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -65,6 +66,43 @@ router.post("/create-chapter", async (req, res) => {
       res.json({
         status: 400,
         message: "Class ID or Subject ID wrong",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error,
+      error: error.message,
+    });
+  }
+});
+
+router.post("/enroll", async (req, res) => {
+  try {
+    let { student_id, chapter_id, status, mark } = req.body;
+    let enrollExists = await Enroll.find({
+      student_id: student_id,
+      chapter_id: chapter_id,
+    });
+
+    if (enrollExists) {
+      let newEnroll = await new Enroll({
+        student_id: student_id,
+        chapter_id: chapter_id,
+        status: status,
+        mark: mark,
+      });
+
+      await newEnroll.save();
+      res.json({
+        status: 200,
+        message: "New Enroll Created Successfully",
+        data: newEnroll,
+      });
+    } else {
+      res.json({
+        status: 400,
+        message: "Student ID or Chapter ID maybe wrong",
       });
     }
   } catch (error) {
