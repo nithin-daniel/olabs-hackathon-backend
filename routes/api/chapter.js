@@ -21,6 +21,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const chapterId = req.params.id;
+
+  try {
+    let chapters = await Chapters.findOne({ _id: chapterId });
+    res.json({
+      status: 200,
+      message: "Chapter Fetched Successfully",
+      data: chapters,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: "Error logging in user",
+      error: error.err,
+    });
+  }
+});
+
 router.post("/create-chapter", async (req, res) => {
   try {
     let { title, content, yt_links, class_id, subject_id } = req.body;
