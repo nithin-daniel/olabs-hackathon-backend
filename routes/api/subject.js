@@ -24,7 +24,10 @@ router.get("/get-subject/:id", async (req, res) => {
   try {
     const subjectId = req.params.id;
 
-    let subjects = await Chapters.find({ subject_id: subjectId });
+    let subjects = await Chapters.find({ subject_id: subjectId }).populate(
+      "class_id"
+    );
+
     res.json({
       status: 200,
       message: "Subjects Fetched Successfully",
