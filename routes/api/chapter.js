@@ -114,6 +114,39 @@ router.post("/enroll", async (req, res) => {
   }
 });
 
+router.patch("/enroll/:id", async (req, res) => {
+  const enrollId = req.params.id;
+
+  try {
+    let { status, mark } = req.body;
+
+    let enrollExists = await Enroll.findOne({ _id: enrollId });
+
+    if (enrollExists) {
+      enrollExists.status = status;
+      enrollExists.mark = mark;
+
+      await enrollExists.save();
+      res.json({
+        status: 200,
+        message: "Enrollment Updated Successfully",
+        data: enrollExists,
+      });
+    } else {
+      res.json({
+        status: 400,
+        message: "Enrollment ID is wrong",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error,
+      error: error.message,
+    });
+  }
+});
+
 router.delete("/delete-chapter/:id", async (req, res) => {
   try {
     const chapterId = req.params.id;
